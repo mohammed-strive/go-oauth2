@@ -3,7 +3,7 @@ package controllers
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -50,7 +50,7 @@ func GoogleCallback(ctx *fiber.Ctx) error {
 
 	defer res.Body.Close()
 
-	userData, err := ioutil.ReadAll(res.Body)
+	userData, err := io.ReadAll(res.Body)
 	if err != nil {
 		log.Errorf(ctx.Context(), "unable to read user data: %v", err)
 		ctx.SendString("json parsing failed")
